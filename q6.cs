@@ -29,54 +29,7 @@ public class DoubleLinkedList
     }
 
 
-    public void AddByPosition(string value, int position)
-    {
-        int currentPostion = 0;
-        Node newNode = new Node(value);
-        Node currentHead = head;
-        if (head == null)
-        {
-            head = new Node(value);
-            tail = head;
-
-        }
-        else if (position == 1)
-        {
-
-            head.prev = newNode;
-            newNode.next = head;
-            head = newNode;
-
-        }
-        else if (position == count)
-        {
-
-            tail.next = newNode;
-            newNode.prev = tail;
-            newNode.next = null;
-            tail = newNode;
-
-        }
-        else
-        {
-            while (currentHead != null)
-            {
-                if (currentPostion + 2 == position)
-                {
-                    newNode.next = currentHead.next;
-                    currentHead.prev = newNode;
-                    currentHead.next = newNode;
-                    newNode.prev = currentHead;
-                    break;
-                }
-                currentPostion++;
-                currentHead = currentHead.next;
-            }
-
-
-        }
-        count++;
-    }
+  
     public void AddLast(string value)
     {
         if (head == null)
@@ -95,6 +48,40 @@ public class DoubleLinkedList
         }
         count++;
     }
+
+    public void AddMiddle(string value, double position)
+    {
+
+        int currentPostion = 0;
+        Node newNode = new Node(value);
+        Node currentHead = head;
+        if (head == null)
+        {
+            head = new Node(value);
+            tail = head;
+
+        }
+        else
+        {
+            while (currentHead != null)
+            {
+                if (currentPostion == position - 2)
+                {
+                    newNode.next = currentHead.next;
+                    currentHead.prev = newNode;
+                    currentHead.next = newNode;
+                    newNode.prev = currentHead;
+                    break;
+                }
+                currentPostion++;
+                currentHead = currentHead.next;
+            }
+
+
+        }
+        count++;
+    }
+  
     public void Display()
     {
         Node currentHead = head;
@@ -118,7 +105,7 @@ public class program
         newlist.AddLast("4");
         newlist.AddLast("5");
 
-        newlist.AddByPosition("3", 1);
+        newlist.AddMiddle("3", 2);
 
         newlist.Display();
     }

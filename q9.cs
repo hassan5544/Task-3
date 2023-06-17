@@ -29,54 +29,7 @@ public class DoubleLinkedList
     }
 
 
-    public void AddByPosition(string value, int position)
-    {
-        int currentPostion = 0;
-        Node newNode = new Node(value);
-        Node currentHead = head;
-        if (head == null)
-        {
-            head = new Node(value);
-            tail = head;
-
-        }
-        else if (position == 1)
-        {
-
-            head.prev = newNode;
-            newNode.next = head;
-            head = newNode;
-
-        }
-        else if (position == count)
-        {
-
-            tail.next = newNode;
-            newNode.prev = tail;
-            newNode.next = null;
-            tail = newNode;
-
-        }
-        else
-        {
-            while (currentHead != null)
-            {
-                if (currentPostion + 2 == position)
-                {
-                    newNode.next = currentHead.next;
-                    currentHead.prev = newNode;
-                    currentHead.next = newNode;
-                    newNode.prev = currentHead;
-                    break;
-                }
-                currentPostion++;
-                currentHead = currentHead.next;
-            }
-
-
-        }
-        count++;
-    }
+  
     public void AddLast(string value)
     {
         if (head == null)
@@ -94,6 +47,46 @@ public class DoubleLinkedList
             tail = newTail;
         }
         count++;
+    }
+
+    public void delete(int position)
+    {
+        int currentPostion = 2;
+        Node currentHead = head;
+        if (head == null)
+        {
+            Console.WriteLine("empty");
+
+        }
+        else if (position == 1 && count > 1)
+        {
+            head = head.next;
+        }
+
+        else if (position == 1 && count == 1)
+        {
+            head = null;
+        }
+        else if (count == position)
+        {
+            tail = tail.prev;
+            tail.next = null;
+
+        }
+        else
+        {
+            while (currentHead != null)
+            {
+                if (currentPostion == position)
+                {
+                    currentHead.next = currentHead.next.next;
+                    currentHead.next.next.prev = currentHead;
+                }
+                currentPostion++;
+                currentHead = currentHead.next;
+            }
+        }
+        --count;
     }
     public void Display()
     {
@@ -115,11 +108,12 @@ public class program
     {
         DoubleLinkedList newlist = new DoubleLinkedList();
         newlist.AddLast("2");
+        newlist.AddLast("3");
         newlist.AddLast("4");
         newlist.AddLast("5");
-
-        newlist.AddByPosition("3", 1);
-
         newlist.Display();
+        newlist.delete(2);
+        newlist.Display();
+
     }
 }
